@@ -1,4 +1,5 @@
 *.orig
+*.pdf
 *.swp
 go/main
 *.pyc

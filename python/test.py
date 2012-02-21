@@ -12,8 +12,7 @@ for i in range(10,20):
   m = Member()
   m.name = ''.join((random.choice(string.lowercase) for _ in range(random.randint(5,15))))
   m.age = random.randint(18,100)
-  m.skills.append(random.choice([C, Cpp, Java, Python, Perl, ASM]))
-  m.skills.append(random.choice([C, Cpp, Java, Python, Perl, ASM]))
+  m.skills.extend(random.sample([C, Cpp, Java, Python, Perl, ASM], 2))
   members.append(m)
 
 print map(printMember, members)
