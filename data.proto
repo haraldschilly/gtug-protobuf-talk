@@ -1,12 +1,12 @@
 package test;
 
 enum Skill { 
-  ASM = 0;  
-  C = 1;
-  Cpp = 2;
-  Java = 3;
-  Python = 4;
-  Perl = 5;
+  ASM     = 0;  
+  C       = 1;
+  Cpp     = 2;
+  Java    = 3;
+  Python  = 4;
+  Perl    = 5;
 }
 
 message Member {
