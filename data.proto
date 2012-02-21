@@ -1,0 +1,26 @@
+package test;
+
+enum Skill { 
+  ASM = 0;  
+  C = 1;
+  Cpp = 2;
+  Java = 3;
+  Python = 4;
+  Perl = 5;
+}
+
+message Member {
+  required string name   = 1;
+  required int32  age    = 2;
+  repeated Skill  skills = 3  [packed=true];
+  optional string email  = 4;
+}
+
+message Club {
+  required string name   = 1;
+  repeated Member member = 2;
+}
+
+message Reply {
+  required double average = 1;
+}

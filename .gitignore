@@ -1,0 +1,7 @@
+python/data_pb2.py
+*.orig
+*.swp
+go/main
+*.pyc
+*.6
+*.8
