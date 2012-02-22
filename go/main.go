@@ -20,6 +20,7 @@ func main() {
     m1_data, err := proto.Marshal(m1)
     if err != nil {
         log.Fatal("marshaling error: ", err)
+        os.Exit(1)
     }
     fmt.Println("m1:          ", m1)
     fmt.Println("m1.Skills:   ", m1.Skills)
@@ -41,22 +42,24 @@ func main() {
 
     for {
         conn, err := listener.Accept()
-        if err != nil {
-            continue
+        checkError(err)
+
+        input := make([]byte, 1024)
+        n, err := conn.Read(input)
+        input = input[:n]
+        fmt.Println("input: ", input)
+        club := &test.Club{}
+        err = proto.Unmarshal(input, club)
+        checkError(err)
+
+        sum := int32(0)
+        fmt.Println("len: ", len(club.Member))
+        for _, m := range club.Member {
+            sum += *m.Age
         }
-        println("got data")
-
-        /* TODO this doesn't work */
-        /*
-           input := make([]byte, 1024)
-           conn.Read(input)
-           fmt.Println("input: ", input)
-           club := test.Club{}
-           err = proto.Unmarshal(input, club)
-           checkError(err)
-        */
-
-        reply := &test.Reply{Average: proto.Float64(9.81)}
+        avg := float64(sum) / float64(len(club.Member))
+        fmt.Printf("avg age: %f   (sum: %d)\n", avg, sum)
+        reply := &test.Reply{Average: proto.Float64(avg)}
         out_data, err := proto.Marshal(reply)
         conn.Write(out_data) // don't care about return value
         conn.Close()         // we're finished with this client
